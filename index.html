@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scalar Code — Demo builds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg: #fafaf8; --ink: #111; --muted: #8a8a85; --line: #e6e6e1; --green: #3d8b5f; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Space Grotesk", system-ui, sans-serif; color: var(--ink); line-height: 1.5;
+    background: var(--bg) radial-gradient(circle at 1px 1px, #dcdcd6 1px, transparent 0) 0 0 / 22px 22px;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1100px, 92%); margin: 0 auto; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 26px 0; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+  .logo span { width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 700; }
+  .pill-btn { border: 1px solid var(--line); background: #fff; padding: 9px 18px; border-radius: 999px; font-size: .9rem; transition: background .2s; }
+  .pill-btn:hover { background: var(--ink); color: #fff; }
+  header { padding: 70px 0 50px; }
+  .eyebrow { font-size: .78rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+  h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.02; letter-spacing: -.04em; font-weight: 700; max-width: 760px; }
+  h1 em { font-style: normal; color: var(--green); }
+  header p { color: var(--muted); font-size: 1.1rem; max-width: 560px; margin-top: 20px; }
+  .demos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-bottom: 60px; }
+  @media (max-width: 1020px) { .demos { grid-template-columns: 1fr 1fr; } }
+  .demo { background: #fff; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; transition: transform .25s, box-shadow .25s; display: flex; flex-direction: column; }
+  .demo:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(0,0,0,.25); }
+  .shot { position: relative; aspect-ratio: 16/10; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .shot iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: 0; transform-origin: 0 0; pointer-events: none; }
+  .info { padding: 24px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+  .num { font-size: .78rem; color: var(--muted); }
+  .info h2 { font-size: 1.5rem; letter-spacing: -.02em; margin: 6px 0 8px; }
+  .info p { color: var(--muted); font-size: .95rem; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 16px 0 20px; }
+  .tags span { font-size: .72rem; border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; color: #555; }
+  .open { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; color: var(--green); }
+  .demo:hover .open { gap: 12px; }
+  .open, .open * { transition: gap .2s; }
+  .soon { border: 1.5px dashed var(--line); border-radius: 22px; padding: 30px; grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; background: rgba(255,255,255,.6); }
+  .soon b { font-size: 1.1rem; }
+  .soon p { color: var(--muted); font-size: .92rem; }
+  footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--muted); font-size: .85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  @media (max-width: 760px) { .demos { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a href="https://scalarcode.vercel.app" class="logo"><span>S</span>Scalar Code</a>
+    <a href="https://scalarcode.vercel.app/#contact" class="pill-btn">Start a project</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow mono">// Demo builds</div>
+    <h1>See what your site <em>could look like.</em></h1>
+    <p>Fully working concept sites built by Scalar Code. Click around: add products to the cart, filter, search and check out. Nothing is charged, they're demos.</p>
+  </header>
+
+  <div class="demos">
+    <a class="demo" href="demos/shop/">
+      <div class="shot"><iframe src="demos/shop/" loading="lazy" tabindex="-1" title="Atelier Nord preview"></iframe></div>
+      <div class="info">
+        <span class="num mono">01 — E-commerce</span>
+        <h2>Atelier Nord</h2>
+        <p>A clothing &amp; lifestyle store with product filters, quick-view, size selection, a slide-out bag and checkout.</p>
+        <div class="tags mono"><span>Online store</span><span>Cart</span><span>Filters</span><span>Mobile-first</span></div>
+        <span class="open">Open live demo →</span>
+      </div>
+    </a>
+    <a class="demo" href="demos/market/">
+      <div class="shot"><iframe src="demos/market/" loading="lazy" tabindex="-1" title="FreshCorner Market preview"></iframe></div>
+      <div class="info">
+        <span class="num mono">02 — Grocery / Market</span>
+        <h2>FreshCorner Market</h2>
+        <p>A local supermarket with search, categories, daily deals countdown, a live basket, delivery time slots and order tracking.</p>
+        <div class="tags mono"><span>Grocery delivery</span><span>Search</span><span>Deals</span><span>Opening hours</span></div>
+        <span class="open">Open live demo →</span>
+      </div>
+    </a>
+    <a class="demo" href="demos/restaurant/">
+      <div class="shot"><iframe src="demos/restaurant/" loading="lazy" tabindex="-1" title="Brasa preview"></iframe></div>
+      <div class="info">
+        <span class="num mono">03 — Restaurant</span>
+        <h2>Brasa</h2>
+        <p>A wood-fired restaurant with an animated hero, a filterable menu, opening hours and online table booking with live time slots.</p>
+        <div class="tags mono"><span>Restaurant</span><span>Menu</span><span>Reservations</span><span>Dark theme</span></div>
+        <span class="open">Open live demo →</span>
+      </div>
+    </a>
+    <div class="soon">
+      <div><b>Need something different?</b><p>Salons, real estate, gyms, clinics — every site is built from scratch around your business.</p></div>
+      <a href="https://scalarcode.vercel.app/#contact" class="pill-btn">Get in touch →</a>
+    </div>
+  </div>
+
+  <footer><span>© 2026 Scalar Code</span><span class="mono">scalarcode@outlook.com</span></footer>
+</div>
+<script>
+  // Scale the live iframe previews to fit their cards
+  const fit = () => document.querySelectorAll(".shot").forEach(s => {
+    s.querySelector("iframe").style.transform = `scale(${s.clientWidth / 1280})`;
+  });
+  addEventListener("resize", fit); fit();
+</script>
+</body>
+</html>

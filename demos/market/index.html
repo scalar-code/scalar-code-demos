@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FreshCorner Market — Groceries delivered in 60 minutes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fbfaf5;
+    --white: #fff;
+    --ink: #17221b;
+    --muted: #6b766e;
+    --line: #e7e9e1;
+    --green: #1f8a4c;
+    --green-d: #166b3a;
+    --lime: #d9f99d;
+    --sun: #ffcf4a;
+    --red: #e5484d;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Plus Jakarta Sans", system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.5; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  .wrap { width: min(1240px, 93%); margin: 0 auto; }
+
+  /* Top bar + header */
+  .topbar { background: var(--green-d); color: #e8f5ec; font-size: .8rem; }
+  .topbar .wrap { display: flex; justify-content: space-between; padding: 8px 0; gap: 10px; flex-wrap: wrap; }
+  header { position: sticky; top: 0; z-index: 40; background: var(--white); border-bottom: 1px solid var(--line); }
+  .head { display: flex; align-items: center; gap: 22px; height: 74px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; letter-spacing: -.03em; white-space: nowrap; }
+  .logo span { width: 38px; height: 38px; border-radius: 12px; background: var(--green); display: grid; place-items: center; font-size: 1.2rem; }
+  .search { flex: 1; position: relative; max-width: 560px; }
+  .search input { width: 100%; padding: 13px 18px 13px 46px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg); font-family: inherit; font-size: .95rem; transition: border-color .2s; }
+  .search input:focus { outline: none; border-color: var(--green); background: #fff; }
+  .search svg { position: absolute; left: 17px; top: 50%; transform: translateY(-50%); width: 18px; color: var(--muted); }
+  .deliver { display: flex; align-items: center; gap: 8px; font-size: .85rem; color: var(--muted); white-space: nowrap; }
+  .deliver b { color: var(--ink); display: block; font-size: .9rem; }
+  .basket-btn { margin-left: auto; display: flex; align-items: center; gap: 10px; background: var(--green); color: #fff; border: 0; padding: 11px 18px; border-radius: 999px; font-weight: 700; font-size: .92rem; transition: background .2s, transform .2s; }
+  .basket-btn:hover { background: var(--green-d); }
+  .basket-btn.bump { animation: bump .4s; }
+  @keyframes bump { 40% { transform: scale(1.08); } }
+  .basket-btn i { font-style: normal; background: rgba(255,255,255,.2); padding: 2px 9px; border-radius: 999px; font-size: .8rem; }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; margin: 28px auto 0; }
+  .hero-main { position: relative; overflow: hidden; border-radius: 28px; background: var(--green); color: #fff; padding: 54px 50px; min-height: 340px; }
+  .hero-main h1 { font-size: clamp(2.2rem, 4.6vw, 3.7rem); line-height: 1.02; letter-spacing: -.04em; font-weight: 800; max-width: 520px; margin-bottom: 16px; }
+  .hero-main h1 mark { background: var(--lime); color: var(--green-d); padding: 0 10px; border-radius: 12px; white-space: nowrap; }
+  .hero-main p { opacity: .85; max-width: 400px; margin-bottom: 26px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border: 0; padding: 14px 24px; border-radius: 999px; font-weight: 700; font-size: .95rem; transition: transform .15s, background .2s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-sun { background: var(--sun); color: var(--ink); }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: var(--green-d); }
+  .float { position: absolute; font-size: 4.2rem; animation: bob 5s ease-in-out infinite; filter: drop-shadow(0 14px 14px rgba(0,0,0,.2)); }
+  @keyframes bob { 50% { transform: translateY(-14px) rotate(8deg); } }
+  .hero-main > :not(.float) { position: relative; z-index: 1; }
+  .f1 { right: 5%; top: 9%; } .f2 { right: 17%; bottom: 7%; animation-delay: -1.5s; font-size: 3rem; }
+  .f3 { right: 4%; bottom: 26%; animation-delay: -3s; font-size: 3.6rem; } .f4 { right: 16%; top: 40%; animation-delay: -2.2s; font-size: 2.6rem; }
+  .hero-side { display: grid; gap: 20px; }
+  .promo { border-radius: 24px; padding: 28px; position: relative; overflow: hidden; }
+  .promo h3 { font-size: 1.35rem; letter-spacing: -.02em; line-height: 1.2; margin-bottom: 6px; max-width: 70%; }
+  .promo p { font-size: .88rem; color: var(--muted); max-width: 65%; }
+  .promo .em { position: absolute; right: 18px; bottom: 6px; font-size: 4.4rem; }
+  .promo code { display: inline-block; margin-top: 12px; background: var(--ink); color: var(--sun); padding: 4px 10px; border-radius: 8px; font-size: .82rem; }
+
+  /* Categories */
+  .cats { display: flex; gap: 12px; overflow-x: auto; padding: 34px 0 6px; scrollbar-width: none; }
+  .cats::-webkit-scrollbar { display: none; }
+  .cat { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 104px; padding: 16px 12px; border-radius: var(--radius); border: 1.5px solid var(--line); background: var(--white); font-weight: 600; font-size: .85rem; transition: all .2s; }
+  .cat span { font-size: 2rem; transition: transform .25s; }
+  .cat:hover span { transform: scale(1.15) rotate(-6deg); }
+  .cat.on { border-color: var(--green); background: #effaf2; color: var(--green-d); }
+
+  /* Layout */
+  .layout { display: grid; grid-template-columns: 1fr 340px; gap: 28px; margin-top: 30px; align-items: start; }
+  .sec-head { display: flex; justify-content: space-between; align-items: center; margin: 10px 0 18px; gap: 10px; flex-wrap: wrap; }
+  .sec-head h2 { font-size: 1.6rem; letter-spacing: -.03em; }
+  .timer { display: flex; align-items: center; gap: 8px; font-size: .85rem; color: var(--muted); }
+  .timer b { background: var(--red); color: #fff; padding: 4px 9px; border-radius: 8px; font-variant-numeric: tabular-nums; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; margin-bottom: 40px; }
+  .p { background: var(--white); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; position: relative; transition: border-color .2s, box-shadow .2s, transform .2s; animation: in .4s both; }
+  @keyframes in { from { opacity: 0; transform: scale(.97); } }
+  .p:hover { border-color: #cfe9d7; box-shadow: 0 14px 30px -18px rgba(31, 138, 76, .45); transform: translateY(-3px); }
+  .p .img { aspect-ratio: 1.15; border-radius: 14px; display: grid; place-items: center; font-size: 3.6rem; margin-bottom: 12px; transition: transform .3s; }
+  .p:hover .img { transform: scale(1.03); }
+  .tag { position: absolute; top: 22px; left: 22px; font-size: .7rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--red); color: #fff; }
+  .tag.local { background: var(--lime); color: var(--green-d); }
+  .p h4 { font-size: .95rem; font-weight: 600; line-height: 1.3; }
+  .p .unit { font-size: .8rem; color: var(--muted); margin: 2px 0 12px; }
+  .p .bottom { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .p .price { font-weight: 800; font-size: 1.08rem; }
+  .p .price s { color: var(--muted); font-weight: 500; font-size: .8rem; margin-left: 4px; }
+  .add { width: 38px; height: 38px; border-radius: 12px; border: 0; background: var(--green); color: #fff; font-size: 1.3rem; display: grid; place-items: center; transition: background .2s, transform .15s; }
+  .add:hover { background: var(--green-d); transform: scale(1.06); }
+  .step { display: flex; align-items: center; background: var(--green); color: #fff; border-radius: 12px; overflow: hidden; }
+  .step button { background: none; border: 0; color: #fff; width: 32px; height: 38px; font-size: 1.1rem; }
+  .step button:hover { background: rgba(0,0,0,.12); }
+  .step span { min-width: 18px; text-align: center; font-weight: 700; font-size: .9rem; }
+  .none { grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--muted); background: var(--white); border-radius: var(--radius); border: 1.5px dashed var(--line); }
+
+  /* Basket */
+  .basket { position: sticky; top: 96px; background: var(--white); border: 1.5px solid var(--line); border-radius: 24px; overflow: hidden; }
+  .b-head { padding: 20px 22px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .b-head h3 { font-size: 1.2rem; letter-spacing: -.02em; }
+  .b-head button { background: none; border: 0; color: var(--muted); font-size: .8rem; text-decoration: underline; }
+  .b-close { display: none !important; font-size: 1.2rem !important; text-decoration: none !important; }
+  .progress { margin: 0 22px 12px; background: #effaf2; border-radius: 12px; padding: 12px 14px; font-size: .82rem; color: var(--green-d); }
+  .progress .bar { height: 6px; background: #d3eedb; border-radius: 999px; margin-top: 8px; overflow: hidden; }
+  .progress .bar i { display: block; height: 100%; background: var(--green); border-radius: 999px; transition: width .4s; }
+  .lines { max-height: 300px; overflow-y: auto; padding: 0 22px; }
+  .line { display: grid; grid-template-columns: 44px 1fr auto; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .88rem; animation: in .3s; }
+  .line .e { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 1.5rem; }
+  .line small { color: var(--muted); display: block; font-size: .76rem; }
+  .line .step { transform: scale(.85); transform-origin: right; }
+  .line .step button { height: 32px; width: 28px; }
+  .b-empty { text-align: center; padding: 30px 22px 34px; color: var(--muted); font-size: .9rem; }
+  .b-empty div { font-size: 2.6rem; margin-bottom: 6px; }
+  .slots { padding: 16px 22px 4px; }
+  .slots label { font-size: .78rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .slot-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
+  .slot { border: 1.5px solid var(--line); background: var(--bg); border-radius: 10px; padding: 8px 4px; font-size: .74rem; font-weight: 600; text-align: center; line-height: 1.3; }
+  .slot small { display: block; color: var(--muted); font-weight: 500; }
+  .slot.on { border-color: var(--green); background: #effaf2; color: var(--green-d); }
+  .slot:disabled { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
+  .totals { padding: 14px 22px 20px; }
+  .totals .r { display: flex; justify-content: space-between; font-size: .9rem; color: var(--muted); margin: 5px 0; }
+  .totals .r.t { color: var(--ink); font-weight: 800; font-size: 1.1rem; margin-top: 10px; }
+  .totals .btn { width: 100%; justify-content: center; margin-top: 12px; }
+  .totals .btn:disabled { background: #b9c4bd; cursor: not-allowed; transform: none; }
+  .ordered { text-align: center; padding: 34px 22px; }
+  .ordered .ok { width: 64px; height: 64px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-size: 1.8rem; margin: 0 auto 14px; animation: pop .45s cubic-bezier(.3,1.6,.5,1); }
+  @keyframes pop { from { transform: scale(0); } }
+  .ordered h3 { margin-bottom: 6px; }
+  .ordered p { color: var(--muted); font-size: .9rem; margin-bottom: 18px; }
+  .track { text-align: left; margin: 0 auto 18px; font-size: .85rem; }
+  .track div { display: flex; gap: 10px; align-items: center; padding: 6px 0; color: var(--muted); }
+  .track div.on { color: var(--ink); font-weight: 600; }
+  .track i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+  .track div.on i { background: var(--green); box-shadow: 0 0 0 4px #d3eedb; }
+
+  /* Info */
+  .how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 30px 0 70px; }
+  .how div { background: var(--white); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .how span { font-size: 2rem; }
+  .how h4 { margin: 10px 0 4px; font-size: 1.05rem; }
+  .how p { color: var(--muted); font-size: .9rem; }
+  .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 28px; overflow: hidden; background: var(--ink); color: #fff; margin-bottom: 70px; }
+  .visit-text { padding: 50px; }
+  .visit-text h2 { font-size: 2rem; letter-spacing: -.03em; margin-bottom: 18px; }
+  .hours { list-style: none; margin: 20px 0; }
+  .hours li { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #2c3a31; font-size: .92rem; color: #b9c6bd; max-width: 360px; }
+  .hours li.today { color: var(--lime); font-weight: 700; }
+  .open-now { display: inline-flex; align-items: center; gap: 8px; background: rgba(217, 249, 157, .12); color: var(--lime); padding: 6px 12px; border-radius: 999px; font-size: .82rem; font-weight: 600; }
+  .open-now i { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  .map { position: relative; min-height: 340px; background:
+      linear-gradient(90deg, transparent 48%, #3b4a40 48%, #3b4a40 52%, transparent 52%),
+      linear-gradient(0deg, transparent 58%, #3b4a40 58%, #3b4a40 62%, transparent 62%),
+      linear-gradient(35deg, transparent 30%, #34423a 30%, #34423a 33%, transparent 33%),
+      #24322a; }
+  .map .pin { position: absolute; left: 50%; top: 60%; transform: translate(-50%, -100%); font-size: 2.6rem; animation: drop 1.4s cubic-bezier(.3,1.5,.5,1) infinite alternate; }
+  @keyframes drop { to { transform: translate(-50%, -115%); } }
+  .map .lbl { position: absolute; left: 50%; top: 64%; transform: translateX(-50%); background: #fff; color: var(--ink); font-size: .8rem; font-weight: 700; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+  .map .park { position: absolute; left: 10%; top: 12%; width: 26%; height: 28%; background: #2d4a35; border-radius: 12px; }
+  .map .block { position: absolute; background: #2c3a31; border-radius: 6px; }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0; color: var(--muted); font-size: .85rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  footer a { text-decoration: underline; }
+
+  .scrim { position: fixed; inset: 0; background: rgba(23, 34, 27, .45); z-index: 55; opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .demo-badge { position: fixed; bottom: 18px; left: 18px; z-index: 50; background: #111; color: #fff; font-size: .75rem; padding: 8px 14px; border-radius: 999px; font-family: ui-monospace, monospace; opacity: .9; }
+  .demo-badge b { color: #6fcf97; }
+
+  @media (max-width: 1000px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-side { grid-template-columns: 1fr 1fr; }
+    .layout { grid-template-columns: 1fr; }
+    .basket { position: fixed; top: 0; right: 0; bottom: 0; width: min(380px, 100%); border-radius: 0; z-index: 60; transform: translateX(100%); transition: transform .35s cubic-bezier(.2,.8,.2,1); display: flex; flex-direction: column; overflow-y: auto; }
+    .basket.open { transform: none; }
+    .basket.open ~ .scrim, .scrim.open { opacity: 1; pointer-events: auto; }
+    .b-close { display: inline !important; }
+    .lines { max-height: none; }
+    .visit { grid-template-columns: 1fr; }
+    .deliver { display: none; }
+    .f2, .f4 { display: none; }
+  }
+  @media (max-width: 640px) {
+    .head { gap: 12px; }
+    .logo b { display: none; }
+    .basket-btn { padding: 11px 14px; }
+    .basket-btn .lbl-txt { display: none; }
+    .hero-main { padding: 38px 28px; }
+    .float { opacity: .35; }
+    .hero-side { grid-template-columns: 1fr; }
+    .how { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .p .img { font-size: 2.8rem; }
+    .visit-text { padding: 36px 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap"><span>🕐 Open daily 07:00 – 22:00</span><span>🚚 Free delivery on orders over €30 · Prishtinë &amp; surroundings</span></div></div>
+
+<header>
+  <div class="wrap head">
+    <a href="#" class="logo"><span>🥬</span><b>FreshCorner</b></a>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search apples, bread, milk…" autocomplete="off" />
+    </div>
+    <div class="deliver">📍<div>Deliver to<b>Prishtinë, Center</b></div></div>
+    <button class="basket-btn" id="basketBtn">🧺 <span class="lbl-txt">Basket</span> <i id="bTotal">€0.00</i></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="hero-main">
+      <h1>Fresh groceries,<br />at your door in <mark>60 min</mark></h1>
+      <p>Farm-fresh produce, local bakery bread and everyday essentials — picked by hand and delivered fast.</p>
+      <a href="#shop" class="btn btn-sun">Start shopping →</a>
+      <div class="float f1">🍎</div><div class="float f2">🥖</div><div class="float f3">🥑</div><div class="float f4">🍋</div>
+    </div>
+    <div class="hero-side">
+      <div class="promo" style="background:var(--lime)">
+        <h3>20% off your first order</h3>
+        <p>Use the code at checkout. Valid on orders over €25.</p>
+        <code>FRESH20</code>
+        <div class="em">🛒</div>
+      </div>
+      <div class="promo" style="background:#ffe7c2">
+        <h3>Local farmers' week</h3>
+        <p>Seasonal produce straight from farms near you.</p>
+        <div class="em">🧑‍🌾</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cats" id="cats"></div>
+
+  <div class="layout" id="shop">
+    <div>
+      <div id="dealsWrap">
+        <div class="sec-head">
+          <h2>🔥 Today's deals</h2>
+          <div class="timer">Ends in <b id="timer">00:00:00</b></div>
+        </div>
+        <div class="grid" id="deals"></div>
+      </div>
+      <div class="sec-head"><h2 id="allTitle">All products</h2></div>
+      <div class="grid" id="all"></div>
+    </div>
+
+    <aside class="basket" id="basket">
+      <div class="b-head"><h3>🧺 Your basket</h3><div><button id="clear">Clear</button> <button class="b-close" id="bClose">✕</button></div></div>
+      <div id="bBody"></div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+  </div>
+
+  <div class="how">
+    <div><span>🛒</span><h4>Pick your groceries</h4><p>Choose from 3,000+ fresh products and daily deals.</p></div>
+    <div><span>⏱️</span><h4>Choose a time slot</h4><p>Get it within 60 minutes, or schedule for later.</p></div>
+    <div><span>🚲</span><h4>We deliver it fresh</h4><p>Packed with care, kept cold, handed to your door.</p></div>
+  </div>
+
+  <div class="visit">
+    <div class="visit-text">
+      <span class="open-now" id="openNow"><i></i>Open now</span>
+      <h2 style="margin-top:16px">Visit the store</h2>
+      <p style="color:#b9c6bd">Rr. Nënë Tereza 12, Prishtinë · +383 44 000 000</p>
+      <ul class="hours" id="hours"></ul>
+    </div>
+    <div class="map">
+      <div class="park"></div>
+      <div class="block" style="left:58%;top:10%;width:30%;height:22%"></div>
+      <div class="block" style="left:8%;top:70%;width:32%;height:20%"></div>
+      <div class="block" style="left:60%;top:72%;width:28%;height:18%"></div>
+      <div class="pin">📍</div><div class="lbl">FreshCorner Market</div>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap"><span>© 2026 FreshCorner Market — a demo store.</span><span>Designed &amp; built by <a href="https://scalarcode.vercel.app" target="_blank">Scalar Code</a></span></div></footer>
+<div class="demo-badge">Demo site by <b>Scalar Code</b></div>
+
+<script>
+  const categories = [
+    { id: "all", name: "All", e: "🛒" },
+    { id: "fruit", name: "Fruit", e: "🍎" },
+    { id: "veg", name: "Vegetables", e: "🥦" },
+    { id: "dairy", name: "Dairy & Eggs", e: "🧀" },
+    { id: "bakery", name: "Bakery", e: "🥐" },
+    { id: "meat", name: "Meat & Fish", e: "🥩" },
+    { id: "pantry", name: "Pantry", e: "🫙" },
+    { id: "drinks", name: "Drinks", e: "🧃" }
+  ];
+  const products = [
+    { id: 1, n: "Red Apples", e: "🍎", c: "fruit", u: "1 kg", p: 1.49, o: 1.99, bg: "#ffe4e1", local: 1 },
+    { id: 2, n: "Bananas", e: "🍌", c: "fruit", u: "1 kg", p: 1.29, bg: "#fff6cc" },
+    { id: 3, n: "Avocado", e: "🥑", c: "fruit", u: "per piece", p: 0.99, o: 1.39, bg: "#e6f4d7" },
+    { id: 4, n: "Strawberries", e: "🍓", c: "fruit", u: "500 g", p: 2.99, bg: "#ffe1e6", local: 1 },
+    { id: 5, n: "Lemons", e: "🍋", c: "fruit", u: "500 g", p: 0.89, bg: "#fffacc" },
+    { id: 6, n: "Watermelon", e: "🍉", c: "fruit", u: "per piece", p: 3.49, bg: "#e3f5e1", local: 1 },
+    { id: 7, n: "Tomatoes", e: "🍅", c: "veg", u: "1 kg", p: 1.19, o: 1.69, bg: "#ffe3dd", local: 1 },
+    { id: 8, n: "Broccoli", e: "🥦", c: "veg", u: "per head", p: 1.09, bg: "#e1f3dc" },
+    { id: 9, n: "Carrots", e: "🥕", c: "veg", u: "1 kg", p: 0.79, bg: "#ffead6", local: 1 },
+    { id: 10, n: "Peppers", e: "🫑", c: "veg", u: "500 g", p: 1.39, bg: "#e3f4da", local: 1 },
+    { id: 11, n: "Potatoes", e: "🥔", c: "veg", u: "2 kg", p: 1.59, bg: "#f3ead9" },
+    { id: 12, n: "Fresh Milk", e: "🥛", c: "dairy", u: "1 L", p: 0.95, bg: "#eef3fa", local: 1 },
+    { id: 13, n: "Village Cheese", e: "🧀", c: "dairy", u: "400 g", p: 3.29, o: 3.99, bg: "#fff3cf", local: 1 },
+    { id: 14, n: "Free-range Eggs", e: "🥚", c: "dairy", u: "10 pcs", p: 2.19, bg: "#f7f0e4" },
+    { id: 15, n: "Butter", e: "🧈", c: "dairy", u: "250 g", p: 2.49, bg: "#fff7d6" },
+    { id: 16, n: "Sourdough Loaf", e: "🍞", c: "bakery", u: "800 g", p: 2.79, bg: "#f6e8d6", local: 1 },
+    { id: 17, n: "Croissants", e: "🥐", c: "bakery", u: "4 pcs", p: 2.99, o: 3.79, bg: "#fbecd6" },
+    { id: 18, n: "Baguette", e: "🥖", c: "bakery", u: "per piece", p: 0.89, bg: "#f5e9d8" },
+    { id: 19, n: "Chicken Breast", e: "🍗", c: "meat", u: "500 g", p: 3.99, bg: "#fde8e2" },
+    { id: 20, n: "Beef Steak", e: "🥩", c: "meat", u: "400 g", p: 7.49, bg: "#fbe1e1" },
+    { id: 21, n: "Fresh Salmon", e: "🐟", c: "meat", u: "300 g", p: 6.99, o: 8.49, bg: "#e1effa" },
+    { id: 22, n: "Olive Oil", e: "🫒", c: "pantry", u: "750 ml", p: 6.49, bg: "#ecf2d9" },
+    { id: 23, n: "Pasta", e: "🍝", c: "pantry", u: "500 g", p: 1.15, bg: "#fdf1d8" },
+    { id: 24, n: "Wildflower Honey", e: "🍯", c: "pantry", u: "450 g", p: 5.49, bg: "#fff0c9", local: 1 },
+    { id: 25, n: "Orange Juice", e: "🧃", c: "drinks", u: "1 L", p: 1.99, bg: "#ffeccc" },
+    { id: 26, n: "Mineral Water", e: "💧", c: "drinks", u: "6 × 1.5 L", p: 2.49, bg: "#e3f1fb" },
+    { id: 27, n: "Ground Coffee", e: "☕", c: "drinks", u: "250 g", p: 3.89, o: 4.59, bg: "#efe4da" }
+  ];
+  const FREE = 30, FEE = 2.5;
+  const eur = n => "€" + n.toFixed(2);
+  let cat = "all", q = "", cart = JSON.parse(localStorage.getItem("fc-cart") || "{}"), slot = null;
+
+  // ---------- Categories ----------
+  const catsEl = document.getElementById("cats");
+  catsEl.innerHTML = categories.map(c => `<button class="cat ${c.id === "all" ? "on" : ""}" data-c="${c.id}"><span>${c.e}</span>${c.name}</button>`).join("");
+  catsEl.onclick = e => {
+    const b = e.target.closest(".cat"); if (!b) return;
+    cat = b.dataset.c;
+    catsEl.querySelectorAll(".cat").forEach(x => x.classList.toggle("on", x === b));
+    render();
+  };
+  document.getElementById("q").oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
+
+  // ---------- Products ----------
+  function control(p) {
+    const n = cart[p.id] || 0;
+    return n ? `<div class="step"><button data-id="${p.id}" data-d="-1">−</button><span>${n}</span><button data-id="${p.id}" data-d="1">+</button></div>`
+             : `<button class="add" data-id="${p.id}" data-d="1" aria-label="Add ${p.n}">+</button>`;
+  }
+  function card(p, i) {
+    const off = p.o ? Math.round((1 - p.p / p.o) * 100) : 0;
+    return `<div class="p" style="animation-delay:${Math.min(i, 12) * 30}ms">
+      ${off ? `<span class="tag">−${off}%</span>` : p.local ? `<span class="tag local">Local</span>` : ""}
+      <div class="img" style="background:${p.bg}">${p.e}</div>
+      <h4>${p.n}</h4><div class="unit">${p.u}</div>
+      <div class="bottom"><div class="price">${eur(p.p)}${p.o ? `<s>${eur(p.o)}</s>` : ""}</div><div data-ctl="${p.id}">${control(p)}</div></div>
+    </div>`;
+  }
+  function render() {
+    const list = products.filter(p => (cat === "all" || p.c === cat) && (!q || p.n.toLowerCase().includes(q)));
+    const showDeals = cat === "all" && !q;
+    document.getElementById("dealsWrap").style.display = showDeals ? "" : "none";
+    if (showDeals) document.getElementById("deals").innerHTML = products.filter(p => p.o).map(card).join("");
+    document.getElementById("allTitle").textContent = q ? `Results for “${q}”` : cat === "all" ? "All products" : categories.find(c => c.id === cat).name;
+    document.getElementById("all").innerHTML = list.length ? list.map(card).join("") : `<div class="none">🔍 No products match “${q}”. Try something else!</div>`;
+  }
+  // Update only the +/- controls so the grid doesn't re-animate on every click
+  function refreshControls(id) {
+    const p = products.find(x => x.id === id);
+    document.querySelectorAll(`[data-ctl="${id}"]`).forEach(el => el.innerHTML = control(p));
+  }
+  function change(id, d) {
+    cart[id] = (cart[id] || 0) + d;
+    if (cart[id] <= 0) delete cart[id];
+    localStorage.setItem("fc-cart", JSON.stringify(cart));
+    refreshControls(id); renderBasket();
+    if (d > 0) { const b = document.getElementById("basketBtn"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump"); }
+  }
+  document.addEventListener("click", e => {
+    const t = e.target.closest("[data-d]");
+    if (t && t.dataset.id) change(+t.dataset.id, +t.dataset.d);
+  });
+
+  // ---------- Basket ----------
+  function slots() {
+    const h = new Date().getHours(), out = [{ k: "asap", t: "ASAP", s: "~60 min", dis: h >= 21 || h < 7 }];
+    [[10, 12], [14, 16], [18, 20]].forEach(([a, b]) => out.push({ k: `${a}`, t: `${a}:00–${b}:00`, s: h >= a - 1 ? "Tomorrow" : "Today" }));
+    return out.slice(0, 3);
+  }
+  function renderBasket() {
+    const ids = Object.keys(cart), body = document.getElementById("bBody");
+    const sub = ids.reduce((a, id) => a + products.find(p => p.id == id).p * cart[id], 0);
+    const save = ids.reduce((a, id) => { const p = products.find(x => x.id == id); return a + (p.o ? (p.o - p.p) * cart[id] : 0); }, 0);
+    const fee = sub >= FREE || !sub ? 0 : FEE, total = sub + fee;
+    document.getElementById("bTotal").textContent = eur(total);
+    if (!ids.length) { body.innerHTML = `<div class="b-empty"><div>🧺</div>Your basket is empty.<br />Add something fresh!</div>`; return; }
+    const sl = slots(); if (!slot || !sl.find(s => s.k === slot && !s.dis)) slot = (sl.find(s => !s.dis) || {}).k;
+    body.innerHTML = `
+      <div class="progress">${sub >= FREE ? "🎉 You've got <b>free delivery</b>!" : `Add <b>${eur(FREE - sub)}</b> more for free delivery`}
+        <div class="bar"><i style="width:${Math.min(sub / FREE * 100, 100)}%"></i></div></div>
+      <div class="lines">${ids.map(id => { const p = products.find(x => x.id == id); return `
+        <div class="line"><div class="e" style="background:${p.bg}">${p.e}</div>
+          <div><b>${p.n}</b><small>${eur(p.p)} · ${p.u}</small></div>
+          <div class="step"><button data-id="${p.id}" data-d="-1">−</button><span>${cart[id]}</span><button data-id="${p.id}" data-d="1">+</button></div></div>`; }).join("")}</div>
+      <div class="slots"><label>Delivery time</label>
+        <div class="slot-row">${sl.map(s => `<button class="slot ${s.k === slot ? "on" : ""}" data-slot="${s.k}" ${s.dis ? "disabled" : ""}>${s.t}<small>${s.s}</small></button>`).join("")}</div></div>
+      <div class="totals">
+        <div class="r"><span>Subtotal</span><span>${eur(sub)}</span></div>
+        ${save ? `<div class="r" style="color:var(--green)"><span>You save</span><span>−${eur(save)}</span></div>` : ""}
+        <div class="r"><span>Delivery</span><span>${fee ? eur(fee) : "Free"}</span></div>
+        <div class="r t"><span>Total</span><span>${eur(total)}</span></div>
+        <button class="btn btn-green" id="order" ${slot ? "" : "disabled"}>Place order · ${eur(total)}</button>
+      </div>`;
+    body.querySelectorAll("[data-slot]").forEach(b => b.onclick = () => { slot = b.dataset.slot; renderBasket(); });
+    document.getElementById("order").onclick = () => placeOrder(total);
+  }
+  function placeOrder(total) {
+    const s = slots().find(x => x.k === slot);
+    const ids = Object.keys(cart); cart = {}; localStorage.removeItem("fc-cart");
+    ids.forEach(id => refreshControls(+id));
+    document.getElementById("bTotal").textContent = eur(0);
+    document.getElementById("bBody").innerHTML = `
+      <div class="ordered"><div class="ok">✓</div><h3>Order placed!</h3>
+        <p>${eur(total)} · Delivery ${s.k === "asap" ? "in about 60 minutes" : `${s.s.toLowerCase()}, ${s.t}`}<br /><small>(Demo only — no payment taken.)</small></p>
+        <div class="track"><div class="on"><i></i>Order confirmed</div><div id="t2"><i></i>Picking your groceries</div><div id="t3"><i></i>Out for delivery</div></div>
+        <button class="btn btn-green" id="again">Shop again</button></div>`;
+    setTimeout(() => document.getElementById("t2")?.classList.add("on"), 1500);
+    setTimeout(() => document.getElementById("t3")?.classList.add("on"), 3200);
+    document.getElementById("again").onclick = () => { renderBasket(); closeBasket(); };
+  }
+  document.getElementById("clear").onclick = () => { const ids = Object.keys(cart); cart = {}; localStorage.removeItem("fc-cart"); ids.forEach(id => refreshControls(+id)); renderBasket(); };
+
+  const basket = document.getElementById("basket"), scrim = document.getElementById("scrim");
+  const mobile = () => matchMedia("(max-width: 1000px)").matches;
+  function closeBasket() { basket.classList.remove("open"); scrim.classList.remove("open"); }
+  document.getElementById("basketBtn").onclick = () => {
+    if (mobile()) { basket.classList.add("open"); scrim.classList.add("open"); }
+    else basket.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+  document.getElementById("bClose").onclick = closeBasket;
+  scrim.onclick = closeBasket;
+  document.addEventListener("keydown", e => e.key === "Escape" && closeBasket());
+
+  // ---------- Deals countdown (to midnight) ----------
+  function tick() {
+    const now = new Date(), end = new Date(now); end.setHours(24, 0, 0, 0);
+    const s = Math.floor((end - now) / 1000), pad = n => String(n).padStart(2, "0");
+    document.getElementById("timer").textContent = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ---------- Opening hours ----------
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const today = (new Date().getDay() + 6) % 7, hr = new Date().getHours();
+  document.getElementById("hours").innerHTML = days.map((d, i) => `<li class="${i === today ? "today" : ""}"><span>${d}${i === today ? " (today)" : ""}</span><span>${i === 6 ? "08:00 – 20:00" : "07:00 – 22:00"}</span></li>`).join("");
+  const closeH = today === 6 ? 20 : 22, openH = today === 6 ? 8 : 7;
+  if (hr < openH || hr >= closeH) document.getElementById("openNow").innerHTML = `<i style="background:#f87171"></i>Closed now · opens ${String(openH).padStart(2, "0")}:00`;
+
+  render(); renderBasket();
+</script>
+</body>
+</html>
